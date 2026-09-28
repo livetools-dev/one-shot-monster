@@ -19,20 +19,14 @@ import {
   Stack,
 } from "@livetools/ui";
 import type { NavigationItem } from "@livetools/ui";
-import { Tools } from "./screens/Tools";
-import { Speeds } from "./screens/Speeds";
-import { Machines } from "./screens/Machines";
+import { Lineup } from "./screens/Lineup";
 
 /** Where the app is served from: "/" locally, "/<repository>/" on GitHub Pages
  * without a custom domain. The router takes it without the trailing slash. */
 const BASE = import.meta.env.BASE_URL;
 const BASENAME = BASE.replace(/\/$/, "");
 
-const SECTIONS = [
-  { label: "Tools", href: "/" },
-  { label: "Speeds", href: "/speeds" },
-  { label: "Machines", href: "/machines" },
-] as const;
+const SECTIONS = [{ label: "Your line-up", href: "/" }] as const;
 
 /** React Router's Link takes `to`; the Navigation part hands its link component `href`. */
 const NavLink = forwardRef<HTMLAnchorElement, Omit<ComponentPropsWithoutRef<"a">, "href"> & { href: string }>(
@@ -82,21 +76,19 @@ function Frame() {
       <Shell className="app-band">
         <Row>
           <Logotype tone="white" />
-          <span>Tool crib</span>
+          <span>One shot monster</span>
           <Navigation label="Sections" items={items} linkComponent={NavLink} />
         </Row>
       </Shell>
       <Panel as="main" className="app-main">
         <Routes>
-          <Route path="/" element={<Tools />} />
-          <Route path="/speeds" element={<Speeds />} />
-          <Route path="/machines" element={<Machines />} />
+          <Route path="/" element={<Lineup />} />
           <Route
             path="*"
             element={
               <Empty title="Nothing at this address">
                 <Link href="/" linkComponent={NavLink} standalone>
-                  Back to the tools
+                  Back to the start
                 </Link>
               </Empty>
             }
